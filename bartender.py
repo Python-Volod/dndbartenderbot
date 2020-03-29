@@ -96,8 +96,6 @@ class MyClient(discord.Client):
             text = message.content
             text = text.split()
             if text[1] == "weapon":
-                if len(text) > 2:
-                    text[2] += text[3]
                 weap = weapons_data.oneDictToRuleThemAll[text[2].lower().replace(' ', '').replace(',', '')]
                 await message.channel.send("⚔️    " + weap["name"] + "    🏹\nDamage: " + weap["damagetype"] + "\nPrice: " + weap["price"] + "\nWeight: " + weap["weight"])
             elif text[1] == "monster":
@@ -114,8 +112,6 @@ class MyClient(discord.Client):
                     except KeyError:
                         await message.channel.send("Seems like I can't find it in my archive")
             elif text[1] == "spell":
-                if len(text) > 2:
-                    text[2] += text[3]
                 spellname = text[2].lower().replace(' ', '').replace('\'', '').replace('/', '').replace('-', '')
                 spl = spells_data.oneDictToRuleThemAll[spellname]
                 await message.channel.send("🔮    " + spl["name"] + "    🪔" + "\nLevel:" + spl["level"] + "\nSchool: " + spl["school"] + "\nCasting time: " + spl["castingtime"] + "\nComponents: " + spl["components"] + "\nSource: " + spl["source"])
