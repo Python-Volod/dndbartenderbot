@@ -31,7 +31,7 @@ import monsters_data
 import spells_data
 
 def checkDice(dice):
-    if dice == "4" or dice == "6" or dice == "8" or dice == "10" or dice == "20" or dice == "100":
+    if dice == "4" or dice == "6" or dice == "8" or dice == "10" or dice == "12" or dice == "20" or dice == "100":
         return 0
     else:
         return 1
