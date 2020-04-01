@@ -46,8 +46,10 @@ class MyClient(discord.Client):
     async def on_message(self, message):
         if message.author == self.user:
             return
+        if message.content.startswith('$author'):
+            await message.channel.send('Author: Python_B\nReddit: reddit.com/u/Python_B\nGithub: https://github.com/PythonB\nDiscord:Python_B#7346\nGithub bot repo: https://github.com/PythonB/dndbartenderbot')
         if message.content.startswith('$help'):
-            await message.channel.send('Greetings adventurer !\n I\'m bartender bot. Here\'s feature list\n@ Dice rolling - $roll [d20] or $roll [2d20] \n@ Getting info about monsters/spells/items - $info [spell/weapon/monster] [Fireball/Greatsword/Beholder] (soon)\n @ Calculate currency exchange - $exchange [amount] [type]')
+            await message.channel.send('Greetings adventurer !\n I\'m bartender bot. Here\'s feature list\n@ Dice rolling - $roll [d20] or $roll [2d20] \n@ Getting info about monsters/spells/items - $info [spell/weapon/monster] [Fireball/Greatsword/Beholder] (soon)\n @ Calculate currency exchange - $exchange [amount] [type]\n@ Information about author and bot source code: $author')
         if message.content.startswith('$roll'):
             text = message.content
             textsplit = text.split()
@@ -96,11 +98,15 @@ class MyClient(discord.Client):
             text = message.content
             text = text.split()
             if text[1] == "weapon":
+                if(len(text) >= 4):
+                    for i in range(3, len(text)):
+                        text[2] += text[i]
                 weap = weapons_data.oneDictToRuleThemAll[text[2].lower().replace(' ', '').replace(',', '')]
                 await message.channel.send("⚔️    " + weap["name"] + "    🏹\nDamage: " + weap["damagetype"] + "\nPrice: " + weap["price"] + "\nWeight: " + weap["weight"])
             elif text[1] == "monster":
-                if len(text) > 2:
-                    text[2] += text[3]
+                if(len(text) >= 4):
+                    for i in range(3, len(text)):
+                        text[2] += text[i]
                 monstername = text[2].lower().replace(' ', '').replace(',', '').replace('/', '').replace('-', '').replace('\'', '')
                 try:
                     monst = monsters_data.MonstersFirstHalf[monstername]
@@ -108,16 +114,19 @@ class MyClient(discord.Client):
                 except KeyError:
                     try:
                         monst = monsters_data.MonstersSecondHalf[monstername]
-                        await message.channel.send("Found")
+                        await message.channel.send("🧟‍♂️    " + monst["name"] + "    🐉" + "\nType: " + monst["type"] + "\nAlignment: " + monst["alignment"] + "\nSize: " + monst["size"] + "\nChallange Rating: " + monst["cr"] + "\nArmor Class: " + monst["ac"] + "\nHit Points: " + monst["hp"] + "\nSpellcaster: " + monst["spellcaster"] + "\nEnvironment: " + monst["environment"] + "\nBook: " + monst["book"] + "\nPage: " + monst["page"])
                     except KeyError:
                         await message.channel.send("Seems like I can't find it in my archive")
             elif text[1] == "spell":
+                if(len(text) >= 4):
+                    for i in range(3, len(text)):
+                        text[2] += text[i]
                 spellname = text[2].lower().replace(' ', '').replace('\'', '').replace('/', '').replace('-', '')
                 spl = spells_data.oneDictToRuleThemAll[spellname]
-                await message.channel.send("🔮    " + spl["name"] + "    🪔" + "\nLevel:" + spl["level"] + "\nSchool: " + spl["school"] + "\nCasting time: " + spl["castingtime"] + "\nComponents: " + spl["components"] + "\nSource: " + spl["source"])
+                await message.channel.send("🔮    " + spl["name"] + "    ⚗️" + "\nLevel:" + spl["level"] + "\nSchool: " + spl["school"] + "\nCasting time: " + spl["castingtime"] + "\nComponents: " + spl["components"] + "\nSource: " + spl["source"])
             else:
                 await message.channel.send("Sorry. This feature will be available later !")
-                 
+                
 client = MyClient()
 
-client.run('TOKEN')
+client.run('NjkzNDc3NzI4NDEzOTQxODE0.Xn9rEw.8l0FCUIAzHKlUe3fZg28N60oFmw')
