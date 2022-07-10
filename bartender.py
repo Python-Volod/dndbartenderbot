@@ -21,6 +21,8 @@
 #MMMMMMMMMMMMMMb    ""--.___.dMMMMMMMMMP^"
 # Art by "bug" from http://www.ascii-art.de/ascii/ab/anime.txt
 
+# I Condemn author of this for that ^
+
 import discord
 from random import randint
 from math import floor
